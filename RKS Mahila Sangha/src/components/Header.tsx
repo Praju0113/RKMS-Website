@@ -27,7 +27,7 @@ export function Header() {
             <img src={logo} alt="RKS Logo" className="w-16 h-16 object-contain" />
             <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-[#0A6C87]">Raju Kshatriya Mahila Sangha</h1>
-              <p className="text-xs text-cyan-600">Empowering Women, Building Communities</p>
+              <p className="text-xs text-cyan-600">Together we serve, Together we rise</p>
             </div>
           </Link>
 

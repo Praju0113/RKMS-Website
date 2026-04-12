@@ -1,4 +1,6 @@
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { SiFacebook, SiInstagram, SiX } from '@icons-pack/react-simple-icons';
+
 import { Link } from 'react-router-dom';
 import logo from '../assets/293c5d14ec8562ce9015186982fdd8d01c49cd35.png';
 
@@ -13,8 +15,9 @@ export function Footer() {
               <img src={logo} alt="RKS Logo" className="w-12 h-12 bg-white rounded-full p-1" />
               <h3 className="text-lg font-bold">Raju Kshatriya Mahila Sangha</h3>
             </div>
-            <p className="text-cyan-100 text-sm">
-              Empowering women through community support, cultural preservation, and social development initiatives.
+            <p className="text-cyan-100 text-sm text-justify max-w-[315px]">
+              Raju Kshatriya Mahila Sangha is a non-profit organization registered under the Karnataka Societies Act 1960 bearing Reg. No. DRB1/SOR/343/2024-2025. 
+              The RKMS works towards empowerment and welfare of women through various social and community activities.
             </p>
           </div>
 
@@ -36,28 +39,26 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-2">
                 <MapPin size={16} className="mt-1 text-[#E5C100] flex-shrink-0" />
-                <span className="text-cyan-100">Bangalore, Karnataka, India</span>
+                <span className="text-cyan-100 text-justify max-w-[260px]">No. 797, "Lakshmi Nilayam", 1st Floor, Banashankari 6th Stage, 1st Block, Parallel to BDA Link Road, Rajarajeshwari Nagar Post, Bangalore-560 098.</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} className="text-[#E5C100] flex-shrink-0" />
-                <span className="text-cyan-100">+91 XXXXX XXXXX</span>
+                <span className="text-cyan-100">+91 9972648909</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="text-[#E5C100] flex-shrink-0" />
-                <span className="text-cyan-100">info@rksmahilavedike.org</span>
+                <span className="text-cyan-100 ">rajukshatriyamahilasangha2024@gmail.com</span>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="flex gap-4 mt-4">
-              <a href="#" className="w-8 h-8 bg-cyan-700 rounded-full flex items-center justify-center hover:bg-[#E5C100] transition-colors">
-                <Facebook size={16} />
+              <a href="https://www.facebook.com/share/18JqEQZKWJ/?mibextid=wwXIfr" className="w-8 h-8 bg-cyan-700 rounded-full flex items-center justify-center hover:bg-[#E5C100] transition-colors">
+                <SiFacebook size={20}
+                />
               </a>
-              <a href="#" className="w-8 h-8 bg-cyan-700 rounded-full flex items-center justify-center hover:bg-[#E5C100] transition-colors">
-                <Twitter size={16} />
-              </a>
-              <a href="#" className="w-8 h-8 bg-cyan-700 rounded-full flex items-center justify-center hover:bg-[#E5C100] transition-colors">
-                <Instagram size={16} />
+              <a href="https://www.instagram.com/rajukshatriyamahilasangha_2024?igsh=MzhrbzRvYjRlZXE2&utm_source=qr" className="w-8 h-8 bg-cyan-700 rounded-full flex items-center justify-center hover:bg-[#E5C100] transition-colors">
+                <SiInstagram size={20} />
               </a>
             </div>
           </div>

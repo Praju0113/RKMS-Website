@@ -16,10 +16,10 @@ export function LandingPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Empowering Women, Strengthening Communities
+                Together we serve, Together we rise
               </h1>
-              <p className="text-xl mb-8 text-cyan-50">
-                Raju Kshatriya Mahila Sangha is dedicated to uplifting women through social, cultural, and educational initiatives.
+              <p className="text-xl mb-8 text-cyan-50 text-justify">
+                We work towards empowerment and welfare of women through various social and community activities.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link

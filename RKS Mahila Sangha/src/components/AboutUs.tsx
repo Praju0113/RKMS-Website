@@ -55,9 +55,9 @@ export function AboutUs() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-700">
-                To empower women through education, skill development, and community support, 
-                enabling them to become confident, independent, and contributing members of society 
-                while preserving our cultural heritage.
+                Our mission is to empower women through collective efforts, to encourage active participation of women, 
+                to encourage women to step forward, and to provide a platform to express themselves to help develop their full potential, 
+                where every woman can grow, and lead. 
               </p>
             </div>
 
@@ -68,9 +68,7 @@ export function AboutUs() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-gray-700">
-                A society where every woman is empowered, respected, and has equal opportunities 
-                to achieve her dreams while maintaining strong cultural roots and community bonds 
-                that strengthen our collective identity.
+                Our vision is to build a community where women become confident and empowered.
               </p>
             </div>
 
@@ -80,6 +78,7 @@ export function AboutUs() {
                 <Award className="w-8 h-8 text-[#0A6C87]" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Objectives</h3>
+              {/*
               <ul className="text-gray-700 space-y-2">
                 <li>• Promote women's education and skill development</li>
                 <li>• Foster cultural preservation and awareness</li>
@@ -87,6 +86,10 @@ export function AboutUs() {
                 <li>• Organize social and cultural events</li>
                 <li>• Support women in need</li>
               </ul>
+              */}
+              <p className="text-gray-700">
+                To Promote  Social, Cultural, Educational, Recreational, Charitable cause and to encourage women entrepreneurs.
+              </p>
             </div>
           </div>
         </div>
