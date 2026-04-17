@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Users, Heart, Calendar, Award } from 'lucide-react';
+import { Target, Eye, Users, Heart, Calendar, Award } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function LandingPage() {
@@ -61,6 +61,60 @@ export function LandingPage() {
           </div>
         </div>
       </section>
+      
+      {/* Mission, Vision, Objectives */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Mission */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
+                <Target className="w-8 h-8 text-cyan-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+              <p className="text-gray-700">
+                Our mission is to empower women through collective efforts, to encourage active participation of women, 
+                to encourage women to step forward, and to provide a platform to express themselves to help develop their full potential, 
+                where every woman can grow, and lead. 
+              </p>
+            </div>
+
+            {/* Vision */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-[#E5C10033] rounded-full flex items-center justify-center mb-6">
+                <Eye className="w-8 h-8 text-[#E5C100]" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
+              <p className="text-gray-700">
+                Our vision is to build a community where women become confident and empowered.
+              </p>
+            </div>
+
+            {/* Objectives */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                <Award className="w-8 h-8 text-[#0A6C87]" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Objectives</h3>
+              {/*
+              <ul className="text-gray-700 space-y-2">
+                <li>• Promote women's education and skill development</li>
+                <li>• Foster cultural preservation and awareness</li>
+                <li>• Build supportive community networks</li>
+                <li>• Organize social and cultural events</li>
+                <li>• Support women in need</li>
+              </ul>
+              */}
+              <p className="text-gray-700">
+                To Promote  Social, Cultural, Educational, Recreational, Charitable cause and to encourage women entrepreneurs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
 
       {/* Mission Section */}
       <section className="py-16 bg-gray-50">
