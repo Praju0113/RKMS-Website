@@ -21,13 +21,13 @@ export function Header() {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-3">
           {/* Logo and Title */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="RKS Logo" className="w-16 h-16 object-contain" />
+            <img src={logo} alt="RKS Logo" className="w-22 h-22 object-contain" />
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-[#0A6C87]">Raju Kshatriya Mahila Sangha</h1>
-              <p className="text-xs text-cyan-600">Together we serve, Together we rise</p>
+              <h3 className="text-2xl font-bold text-[#0A6C87]">ರಾಜು ಕ್ಷತ್ರಿಯ ಮಹಿಳಾ ಸಂಘ</h3>
+              <h3 className="text-2xl font-bold text-[#0A6C87]">Raju Kshatriya Mahila Sangha</h3>
             </div>
           </Link>
 
