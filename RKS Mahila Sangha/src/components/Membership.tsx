@@ -27,9 +27,16 @@ export function Membership() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
+    guardianName: '',
+    gotraName: '',
     email: '',
     phone: '',
     dateOfBirth: '',
+    educationalQualification: '',
+    profession: '',
+    maritalStatus: '',
+    bloodGroup: '',
+    photo: null as File | null,
     address: '',
     city: '',
     state: 'Karnataka',
@@ -76,6 +83,15 @@ export function Membership() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({
+        ...formData,
+        photo: e.target.files[0],
+      });
+    }
   };
 
   const validateForm = (): boolean => {
@@ -450,6 +466,21 @@ export function Membership() {
 
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
+                    Father's/Husband's/Guardian's Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="guardianName"
+                    value={formData.guardianName}
+                    onChange={handleInputChange}
+                    placeholder="Enter guardian's name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
                     Date of Birth *
                   </label>
                   <input
@@ -457,6 +488,21 @@ export function Membership() {
                     name="dateOfBirth"
                     value={formData.dateOfBirth}
                     onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Gotra/Family Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="gotraName"
+                    value={formData.gotraName}
+                    onChange={handleInputChange}
+                    placeholder="Enter gotra/family name"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                     required
                   />
@@ -490,6 +536,99 @@ export function Membership() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                     required
                   />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Educational Qualification *
+                  </label>
+                  <select
+                    name="educationalQualification"
+                    value={formData.educationalQualification}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="">Select qualification</option>
+                    <option value="No Schooling">No Schooling</option>
+                    <option value="Not completed 10th Std / SSLC">Not completed 10th Std / SSLC</option>
+                    <option value="Not completed 12th Std / II PUC">Not completed 12th Std / II PUC</option>
+                    <option value="Graduate (Bachelor's)">Graduate (Bachelor's)</option>
+                    <option value="Post Graduate (Master's)">Post Graduate (Master's)</option>
+                    <option value="Any Other">Any Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Profession *
+                  </label>
+                  <input
+                    type="text"
+                    name="profession"
+                    value={formData.profession}
+                    onChange={handleInputChange}
+                    placeholder="Enter your profession"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Marital Status *
+                  </label>
+                  <select
+                    name="maritalStatus"
+                    value={formData.maritalStatus}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="">Select status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Divorced">Divorced</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Blood Group *
+                  </label>
+                  <select
+                    name="bloodGroup"
+                    value={formData.bloodGroup}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Upload Passport Size Photo *
+                  </label>
+                  <input
+                    type="file"
+                    name="photo"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-50 file:text-cyan-600 hover:file:bg-cyan-100"
+                    required
+                  />
+                  <p className="text-sm text-gray-500 mt-2">Please upload a recent passport size photograph (JPG, PNG)</p>
                 </div>
 
                 <div className="md:col-span-2">

@@ -1,4 +1,4 @@
-import { Target, Eye, Award, Users } from 'lucide-react';
+
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useState } from 'react';
 import smtIndira from '../assets/Smt. Indira.png';
@@ -8,6 +8,7 @@ import padmar from '../assets/Ms. Padma R.png';
 import padmaraju from '../assets/Smt. Padma Raju.png';
 import leelakrishnamaraju from '../assets/Mrs. Leelakrishnamaraju.png';
 import pushpavasu from '../assets/Pushpa Vasu.png';
+
 
 
 export function AboutUs() {
@@ -172,28 +173,15 @@ export function AboutUs() {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
-                  name: 'Former Member Name',
-                  title: 'Former President',
+                  name: 'Smt. Geetha Lakshman',
+                  title: 'Founding member and former Secretary of the Raju Kshatriya Mahila Sangha',
                   photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-                  bio: 'Brief biography and role description for the former member. Add their background, experience, and contributions during their tenure with the organization.',
-                  tenure: '2018-2021'
+                  bio: 'Smt Geetha has been an active and dedicated contributor to its growth and initiatives. She has played a significant role in supporting the Sangha’s efforts in fundraising and has consistently taken a keen personal interest in advancing its causes, particularly those focused on women’s welfare and empowerment. she has continually worked within the Sangha to build competencies, encourage participation, and foster personal and collective development among its members. Professionally, she is a certified interior designer and a talented artist, bringing creativity and vision to all her endeavors.',
+
                 },
-                {
-                  name: 'Former Member Name',
-                  title: 'Former Secretary',
-                  photo: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&h=400&fit=crop',
-                  bio: 'Brief biography and role description for the former member. Add their background, experience, and contributions during their tenure with the organization.',
-                  tenure: '2019-2022'
-                },
-                {
-                  name: 'Former Member Name',
-                  title: 'Former Treasurer',
-                  photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-                  bio: 'Brief biography and role description for the former member. Add their background, experience, and contributions during their tenure with the organization.',
-                  tenure: '2017-2020'
-                }
+                
               ].map((member, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-t-4 border-gray-400 overflow-hidden">
+                <div key={index} className="bg-gray-50 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-t-4 border-cyan-400 overflow-hidden">
                   <div className="aspect-square w-full overflow-hidden bg-gray-200">
                     <ImageWithFallback
                       src={member.photo}
@@ -203,9 +191,8 @@ export function AboutUs() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                    <p className="text-gray-600 font-semibold mb-1">{member.title}</p>
-                    <p className="text-sm text-gray-500 mb-4">Tenure: {member.tenure}</p>
-                    <p className="text-gray-700 text-sm leading-relaxed">{member.bio}</p>
+                    <p className="text-cyan-600 font-semibold mb-4">{member.title}</p>
+                    <p className="text-gray-700 text-sm leading-relaxed text-justify">{member.bio}</p>
                   </div>
                 </div>
               ))}
