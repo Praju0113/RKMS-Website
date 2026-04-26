@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Shield, Lock, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { adminApi } from '../../services/api';
-import logo from '../../assets/293c5d14ec8562ce9015186982fdd8d01c49cd35.png';
+import logo from '../../assets/RKMS-Logo.png';
 
 export function AdminLogin() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export function AdminLogin() {
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <img src={logo} alt="RKS Mahila Vedike" className="w-24 h-24" />
+              <img src={logo} alt="Raju Kshatriya Mahila Sangha" className="w-24 h-24" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Portal</h1>
             <p className="text-gray-600">Raju Kshatriya Mahila Sangha</p>

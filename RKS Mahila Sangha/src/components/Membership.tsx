@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { settingsApi, membershipApi } from '../services/api';
-import logo from '../assets/293c5d14ec8562ce9015186982fdd8d01c49cd35.png';
+import logo from '../assets/RKMS Logo.png';
 
 interface MembershipData {
   memberId: string;

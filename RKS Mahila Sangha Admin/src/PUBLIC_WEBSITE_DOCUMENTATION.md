@@ -1,10 +1,10 @@
-# RKS Mahila Vedike - Public Website Documentation
+# Raju Kshatriya Mahila Sangha - Public Website Documentation
 
 ## Overview
-This document describes the public-facing website that was originally part of the RKS Mahila Vedike (Raju Kshatriya community women's organization) project. The public website components have been removed, but this documentation serves as a reference for the intended features.
+This document describes the public-facing website that was originally part of the Raju Kshatriya Mahila Sangha (Raju Kshatriya community women's organization) project. The public website components have been removed, but this documentation serves as a reference for the intended features.
 
 ## Organization Details
-- **Name**: RKS Mahila Vedike
+- **Name**: Raju Kshatriya Mahila Sangha
 - **Purpose**: Raju Kshatriya community women's organization
 - **Focus**: Women empowerment, cultural preservation, and community development
 

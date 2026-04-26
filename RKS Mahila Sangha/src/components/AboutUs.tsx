@@ -32,7 +32,7 @@ export function AboutUs() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Organization History</h2>
             <p className="text-gray-700 mb-4 text-justify">
-              In the year 2022, the RKS Mahila Vedike marked its inception by ceremonially lighting its first 
+              In the year 2022, the Raju Kshatriya Mahila Sangha marked its inception by ceremonially lighting its first 
               auspicious Deepam, symbolizing hope, unity, and collective strength. What began as a modest initiative 
               has since grown into a vibrant and dynamic platform. As of today, the Mahila Vedike has expanded to a 
               strong membership of approximately 752 women, reflecting an impressive growth of nearly 300% since its 
@@ -44,7 +44,7 @@ export function AboutUs() {
               Bengaluru, Karnataka. With the guidance and leadership of the Hon’ble President, Sri Ganesh Raju, along 
               with the esteemed Committee Members of the Sangha, the women’s wing was formally constituted. The inaugural 
               function was held on 8th October 2022 at Chamaraju Kalyana Mandira, Jayanagar, Bengaluru, marking the official 
-              commencement of the RKS Mahila Vedike.
+              commencement of the Raju Kshatriya Mahila Sangha.
             </p>
             <p className="text-gray-700 mb-4 text-justify">
               In its initial phase, the committee members of the RKS Mahila Sangha actively conducted door-to-door outreach 
