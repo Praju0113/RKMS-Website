@@ -25,9 +25,9 @@ export function Header() {
           {/* Logo and Title */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="RKS Logo" className="w-22 h-22 object-contain" />
-            <div className="hidden sm:block">
-              <h3 className="text-2xl font-bold text-[#0A6C87]">ರಾಜು ಕ್ಷತ್ರಿಯ ಮಹಿಳಾ ಸಂಘ</h3>
-              <h3 className="text-2xl font-bold text-[#0A6C87]">Raju Kshatriya Mahila Sangha</h3>
+            <div>
+              <h3 className="text-lg md:text-3xl font-bold text-[#0A6C87] leading-tight">ರಾಜು ಕ್ಷತ್ರಿಯ ಮಹಿಳಾ ಸಂಘ</h3>
+              <h3 className="text-lg md:text-3xl font-bold text-[#0A6C87] leading-tight">Raju Kshatriya Mahila Sangha</h3>
             </div>
           </Link>
 
