@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Calendar, Users, CreditCard, Settings, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
-import logo from '../../assets/0140d63a9961cc0ca0c81000f4a30acf9b6c69bd.png';
+import logo from '../../assets/RKMS-Logo.png';
 
 interface AdminLayoutProps {
   children: React.ReactNode;

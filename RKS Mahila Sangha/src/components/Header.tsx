@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import logo from '../assets/293c5d14ec8562ce9015186982fdd8d01c49cd35.png';
+import logo from '../assets/RKMS Logo.png';
 
 export function Header() {
   const location = useLocation();

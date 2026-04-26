@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { SiFacebook, SiInstagram, SiX } from '@icons-pack/react-simple-icons';
+import { SiFacebook, SiInstagram } from '@icons-pack/react-simple-icons';
 
 import { Link } from 'react-router-dom';
-import logo from '../assets/293c5d14ec8562ce9015186982fdd8d01c49cd35.png';
+import logo from '../assets/RKMS Logo.png';
 
 export function Footer() {
   return (
