@@ -142,9 +142,15 @@ export function Membership() {
       // Create order with backend
       const response = await membershipApi.createOrder({
         name: formData.fullName,
+        guardianName: formData.guardianName,
+        gotraName: formData.gotraName,
         email: formData.email,
         phone: formData.phone,
         dateOfBirth: formData.dateOfBirth,
+        educationalQualification: formData.educationalQualification,
+        profession: formData.profession,
+        maritalStatus: formData.maritalStatus,
+        bloodGroup: formData.bloodGroup,
         address: formData.address,
         city: formData.city,
         state: formData.state,
@@ -233,14 +239,21 @@ export function Membership() {
         razorpay_payment_id: paymentData.razorpay_payment_id,
         razorpay_signature: paymentData.razorpay_signature,
         name: formData.fullName,
+        guardianName: formData.guardianName,
+        gotraName: formData.gotraName,
         email: formData.email,
         phone: formData.phone,
         dateOfBirth: formData.dateOfBirth,
+        educationalQualification: formData.educationalQualification,
+        profession: formData.profession,
+        maritalStatus: formData.maritalStatus,
+        bloodGroup: formData.bloodGroup,
         address: formData.address,
         city: formData.city,
         state: formData.state,
         pincode: formData.pincode,
         aadharNumber: formData.aadharNumber,
+        photo: formData.photo || undefined,
       });
 
       if (response.success && response.membership_id) {

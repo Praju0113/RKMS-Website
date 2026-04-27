@@ -8,7 +8,23 @@ const { generateMembershipId } = require('../utils/idGenerator');
 // Create simulated order for membership
 const createMembershipOrder = async (req, res) => {
   try {
-    const { name, email, phone, dateOfBirth, address, city, state, pincode, aadharNumber } = req.body;
+    const { 
+      name, 
+      guardianName, 
+      gotraName, 
+      email, 
+      phone, 
+      dateOfBirth, 
+      educationalQualification, 
+      profession, 
+      maritalStatus, 
+      bloodGroup, 
+      address, 
+      city, 
+      state, 
+      pincode, 
+      aadharNumber 
+    } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -32,7 +48,23 @@ const createMembershipOrder = async (req, res) => {
       success: true,
       order: orderResult.order,
       razorpayKeyId: 'SIMULATED_KEY',
-      memberData: { name, email, phone, dateOfBirth, address, city, state, pincode, aadharNumber },
+      memberData: { 
+        name, 
+        guardianName, 
+        gotraName, 
+        email, 
+        phone, 
+        dateOfBirth, 
+        educationalQualification, 
+        profession, 
+        maritalStatus, 
+        bloodGroup, 
+        address, 
+        city, 
+        state, 
+        pincode, 
+        aadharNumber 
+      },
       amount: membershipFee
     });
   } catch (error) {
@@ -49,9 +81,15 @@ const verifyMembershipPayment = async (req, res) => {
       razorpay_payment_id,
       razorpay_signature,
       name,
+      guardianName,
+      gotraName,
       email,
       phone,
       dateOfBirth,
+      educationalQualification,
+      profession,
+      maritalStatus,
+      bloodGroup,
       address,
       city,
       state,
@@ -73,11 +111,36 @@ const verifyMembershipPayment = async (req, res) => {
 
     const membership_id = await generateMembershipId();
 
+    // Handle photo upload if present
+    let photoUrl = null;
+    if (req.file) {
+      photoUrl = `/uploads/${req.file.filename}`;
+    }
+
     const [memberResult] = await pool.query(
       `INSERT INTO members
-      (name, email, phone, membership_id, date_of_birth, address, city, state, pincode, aadhar_number, is_active)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [name, email, phone, membership_id, dateOfBirth, address, city, state, pincode, aadharNumber || null, true]
+      (name, guardian_name, gotra_name, email, phone, membership_id, date_of_birth, educational_qualification, profession, marital_status, blood_group, address, city, state, pincode, aadhar_number, photo_url, is_active)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        name, 
+        guardianName, 
+        gotraName, 
+        email, 
+        phone, 
+        membership_id, 
+        dateOfBirth, 
+        educationalQualification, 
+        profession, 
+        maritalStatus, 
+        bloodGroup, 
+        address, 
+        city, 
+        state, 
+        pincode, 
+        aadharNumber || null, 
+        photoUrl, 
+        true
+      ]
     );
 
     const memberId = memberResult.insertId;

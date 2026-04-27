@@ -7,11 +7,22 @@ import { adminApi } from '../../services/api';
 interface Member {
   id: string;
   name: string;
+  guardianName: string;
+  gotraName: string;
   email: string;
   phone: string;
   membershipId: string;
+  dateOfBirth: string;
+  educationalQualification: string;
+  profession: string;
+  maritalStatus: string;
+  bloodGroup: string;
+  address: string;
   city: string;
   state: string;
+  pincode: string;
+  aadharNumber: string;
+  photoUrl: string;
   joinDate: string;
   status: 'Active' | 'Inactive';
 }
@@ -61,11 +72,22 @@ export function MemberManagement() {
         const rows: Member[] = response.members.map((m: Record<string, unknown>) => ({
           id: String(m.id),
           name: String(m.name ?? ''),
+          guardianName: String(m.guardian_name ?? ''),
+          gotraName: String(m.gotra_name ?? ''),
           email: String(m.email ?? ''),
           phone: String(m.phone ?? ''),
           membershipId: String(m.membership_id ?? ''),
+          dateOfBirth: String(m.date_of_birth ?? ''),
+          educationalQualification: String(m.educational_qualification ?? ''),
+          profession: String(m.profession ?? ''),
+          maritalStatus: String(m.marital_status ?? ''),
+          bloodGroup: String(m.blood_group ?? ''),
+          address: String(m.address ?? ''),
           city: String(m.city ?? ''),
           state: String(m.state ?? ''),
+          pincode: String(m.pincode ?? ''),
+          aadharNumber: String(m.aadhar_number ?? ''),
+          photoUrl: String(m.photo_url ?? ''),
           joinDate: String(m.created_at ?? ''),
           status: m.is_active === 1 || m.is_active === true ? 'Active' : 'Inactive',
         }));
@@ -247,28 +269,55 @@ export function MemberManagement() {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Membership ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Name
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Guardian
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Gotra
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Phone
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      City
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      DOB
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      State
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Education
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Profession
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Blood
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Address
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      City
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      State
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Pincode
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Aadhar
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Join Date
                     </th>
                   </tr>
@@ -276,16 +325,29 @@ export function MemberManagement() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredMembers.map((member) => (
                     <tr key={member.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">
                         {member.membershipId}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{member.name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{member.email}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{member.phone}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{member.city}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{member.state}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{member.status}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-900">{member.name}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.guardianName || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.gotraName || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.email}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.phone}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">
+                        {member.dateOfBirth ? new Date(member.dateOfBirth).toLocaleDateString() : '-'}
+                      </td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.educationalQualification || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.profession || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.maritalStatus || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.bloodGroup || '-'}</td>
+                      <td className="px-2 py-2 text-xs text-gray-600 max-w-xs truncate" title={member.address}>
+                        {member.address || '-'}
+                      </td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.city}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.state}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.pincode}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">{member.aadharNumber || '-'}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-xs text-gray-600">
                         {member.joinDate ? new Date(member.joinDate).toLocaleDateString() : '—'}
                       </td>
                     </tr>
