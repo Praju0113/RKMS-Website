@@ -51,9 +51,15 @@ export const settingsApi = {
 export const membershipApi = {
   createOrder: async (memberData: {
     name: string;
+    guardianName: string;
+    gotraName: string;
     email: string;
     phone: string;
     dateOfBirth: string;
+    educationalQualification: string;
+    profession: string;
+    maritalStatus: string;
+    bloodGroup: string;
     address: string;
     city: string;
     state: string;
@@ -75,21 +81,39 @@ export const membershipApi = {
     razorpay_payment_id: string;
     razorpay_signature: string;
     name: string;
+    guardianName: string;
+    gotraName: string;
     email: string;
     phone: string;
     dateOfBirth: string;
+    educationalQualification: string;
+    profession: string;
+    maritalStatus: string;
+    bloodGroup: string;
     address: string;
     city: string;
     state: string;
     pincode: string;
     aadharNumber?: string;
+    photo?: File;
   }) => {
+    const formData = new FormData();
+    
+    // Add all text fields
+    Object.keys(paymentData).forEach(key => {
+      if (key !== 'photo' && paymentData[key as keyof typeof paymentData] !== undefined) {
+        formData.append(key, paymentData[key as keyof typeof paymentData] as string);
+      }
+    });
+
+    // Add photo file if present
+    if (paymentData.photo) {
+      formData.append('photo', paymentData.photo);
+    }
+
     const response = await fetch(`${API_BASE_URL}/membership/verify-payment`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(paymentData),
+      body: formData, // Use FormData for file upload support
     });
     return response.json() as Promise<ApiResponse<any>>;
   },

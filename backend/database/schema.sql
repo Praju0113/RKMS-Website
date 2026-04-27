@@ -26,6 +26,13 @@ CREATE TABLE IF NOT EXISTS members (
     state VARCHAR(50),
     pincode VARCHAR(10),
     aadhar_number VARCHAR(12),
+    guardian_name VARCHAR(100),
+    gotra_name VARCHAR(50),
+    educational_qualification VARCHAR(50),
+    profession VARCHAR(100),
+    marital_status ENUM('Single', 'Married', 'Widowed', 'Divorced'),
+    blood_group ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
+    photo_url VARCHAR(500),
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

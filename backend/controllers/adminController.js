@@ -55,7 +55,9 @@ const getDashboard = async (req, res) => {
         const [[eventCount]] = await pool.query('SELECT COUNT(*) AS total FROM events');
 
         const [recentMembers] = await pool.query(
-            `SELECT id, name, email, membership_id, created_at
+            `SELECT id, name, guardian_name, gotra_name, email, phone, membership_id, 
+                    educational_qualification, profession, marital_status, blood_group, 
+                    city, state, created_at
              FROM members
              ORDER BY created_at DESC
              LIMIT 5`
@@ -95,7 +97,9 @@ const getMembers = async (req, res) => {
         const skip = (page - 1) * limit;
 
         const [members] = await pool.query(
-            `SELECT id, name, email, phone, membership_id, city, state, is_active, created_at
+            `SELECT id, name, guardian_name, gotra_name, email, phone, membership_id, date_of_birth, 
+                    educational_qualification, profession, marital_status, blood_group, address, city, state, pincode, 
+                    aadhar_number, photo_url, is_active, created_at
              FROM members
              ORDER BY created_at DESC
              LIMIT ? OFFSET ?`,
