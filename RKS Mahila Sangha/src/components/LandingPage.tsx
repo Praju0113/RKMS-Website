@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Target, Eye, Users, Heart, Calendar, Award } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import heroImage from '../assets/Heroimage.jpg';
 
 export function LandingPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#0A6C87] to-cyan-600 text-white py-28" style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1678082310346-4299fb587084?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21lbiUyMGVtcG93ZXJtZW50JTIwc3VjY2Vzc3xlbnwxfHx8fDE3NzAxMDY5MTh8MA&ixlib=rb-4.1.0&q=80&w=1080)',
+      <section className="relative bg-gradient-to-r from-[#0A6C87] to-cyan-600 text-white py-50" style={{
+        backgroundImage: `url(${heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>
