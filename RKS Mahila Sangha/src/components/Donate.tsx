@@ -176,6 +176,13 @@ export function Donate() {
               A receipt has been sent to your email address. Your contribution will help us continue our mission to empower women and strengthen communities.
             </p>
             <button
+                onClick={downloadReceipt}
+                className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <Download className="w-5 h-5" />
+                Download Receipt
+              </button>
+            <button
               onClick={() => navigate('/')}
               className="bg-[#E5C100] text-[#0A6C87] px-8 py-3 rounded-lg font-semibold hover:bg-[#CCA900] transition-colors"
             >
