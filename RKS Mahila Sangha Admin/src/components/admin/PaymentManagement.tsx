@@ -14,11 +14,15 @@ interface Transaction {
   status: 'completed' | 'pending' | 'failed';
   payment_id?: string;
   membership_id?: string;
+  donationPurpose?: 'Scholarship' | 'Health' | 'General' | 'Education';
+  panNumber?: string;
+  donorAddress?: string;
 }
 
 export function PaymentManagement() {
   const [filterType, setFilterType] = useState<'all' | 'donation' | 'membership' | 'event'>('all');
   const [filterStatus, setFilterStatus] = useState<'all' | 'completed' | 'pending' | 'failed'>('all');
+  const [filterDonationPurpose, setFilterDonationPurpose] = useState<'all' | 'Scholarship' | 'Health' | 'General' | 'Education'>('all');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -59,6 +63,7 @@ export function PaymentManagement() {
   const filteredTransactions = transactions.filter((transaction) => {
     if (filterType !== 'all' && transaction.type !== filterType) return false;
     if (filterStatus !== 'all' && transaction.status !== filterStatus) return false;
+    if (filterDonationPurpose !== 'all' && transaction.donationPurpose !== filterDonationPurpose) return false;
     if (startDate && new Date(transaction.created_at) < new Date(startDate)) return false;
     if (endDate && new Date(transaction.created_at) > new Date(endDate)) return false;
     return true;
@@ -76,7 +81,7 @@ export function PaymentManagement() {
       return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
     const rows = [
-      ['ID', 'Name', 'Email', 'Type', 'Amount', 'Date', 'Status', 'Payment ID'],
+      ['ID', 'Name', 'Email', 'Type', 'Amount', 'Date', 'Status', 'Payment ID', 'Donation Purpose', 'PAN Number', 'Address'],
       ...filteredTransactions.map((t) => [
         t.id,
         t.name || 'Guest',
@@ -86,6 +91,9 @@ export function PaymentManagement() {
         new Date(t.created_at).toLocaleDateString(),
         t.status,
         t.payment_id || '',
+        t.type === 'donation' && t.donationPurpose ? t.donationPurpose : '',
+        t.type === 'donation' && t.panNumber ? t.panNumber : '',
+        t.type === 'donation' && t.donorAddress ? t.donorAddress : '',
       ]),
     ];
     const csv = rows.map((row) => row.map(esc).join(',')).join('\n');
@@ -130,6 +138,21 @@ export function PaymentManagement() {
                 <option value="donation">Donations</option>
                 <option value="membership">Memberships</option>
                 <option value="event">Event Fees</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Donation Purpose</label>
+              <select
+                value={filterDonationPurpose}
+                onChange={(e) => setFilterDonationPurpose(e.target.value as any)}
+                disabled={filterType !== 'all' && filterType !== 'donation'}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0A6C87] disabled:bg-gray-100 disabled:cursor-not-allowed"
+              >
+                <option value="all">All Purposes</option>
+                <option value="Scholarship">Scholarship</option>
+                <option value="Health">Health</option>
+                <option value="General">General</option>
+                <option value="Education">Education</option>
               </select>
             </div>
             <div>
@@ -199,12 +222,49 @@ export function PaymentManagement() {
           </div>
         </div>
 
+        {/* Donation Purpose Breakdown */}
+        {(filterType === 'all' || filterType === 'donation') && (
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Donation Breakdown by Purpose</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                  <h4 className="text-sm font-medium text-gray-700">Scholarship</h4>
+                </div>
+                <p className="text-xl font-bold text-purple-700">₹{donationByPurpose.Scholarship.toLocaleString()}</p>
+              </div>
+              <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <h4 className="text-sm font-medium text-gray-700">Health</h4>
+                </div>
+                <p className="text-xl font-bold text-red-700">₹{donationByPurpose.Health.toLocaleString()}</p>
+              </div>
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
+                  <h4 className="text-sm font-medium text-gray-700">General</h4>
+                </div>
+                <p className="text-xl font-bold text-gray-700">₹{donationByPurpose.General.toLocaleString()}</p>
+              </div>
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                  <h4 className="text-sm font-medium text-gray-700">Education</h4>
+                </div>
+                <p className="text-xl font-bold text-blue-700">₹{donationByPurpose.Education.toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Transactions Table */}
         <div className="bg-white rounded-lg shadow-md">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Transactions</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Transactions ({filteredTransactions.length})</h2>
           </div>
-          
+
           {isLoading ? (
             <div className="p-8 text-center">
               <p className="text-lg text-gray-600">Loading payments...</p>
@@ -235,6 +295,15 @@ export function PaymentManagement() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Payment ID
                     </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Donation Purpose
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      PAN Number
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Address
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -243,11 +312,12 @@ export function PaymentManagement() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {transaction.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {transaction.name || 'Guest'}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{transaction.name || 'Guest'}</div>
+                        <div className="text-xs text-gray-500">{transaction.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100">
+                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 capitalize">
                           {transaction.type}
                         </span>
                       </td>
@@ -258,7 +328,7 @@ export function PaymentManagement() {
                         {new Date(transaction.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${
                           transaction.status === 'completed'
                             ? 'bg-green-100 text-green-800'
                             : transaction.status === 'pending'
@@ -270,6 +340,39 @@ export function PaymentManagement() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {transaction.payment_id || '-'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {transaction.type === 'donation' && transaction.donationPurpose ? (
+                          <span className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full ${
+                            transaction.donationPurpose === 'Scholarship'
+                              ? 'bg-purple-100 text-purple-800'
+                              : transaction.donationPurpose === 'Health'
+                              ? 'bg-red-100 text-red-800'
+                              : transaction.donationPurpose === 'Education'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {transaction.donationPurpose}
+                          </span>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {transaction.type === 'donation' && transaction.panNumber ? (
+                          transaction.panNumber
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
+                        {transaction.type === 'donation' && transaction.donorAddress ? (
+                          <div className="truncate" title={transaction.donorAddress}>
+                            {transaction.donorAddress}
+                          </div>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
                       </td>
                     </tr>
                   ))}
