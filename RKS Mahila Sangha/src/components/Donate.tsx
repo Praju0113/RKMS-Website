@@ -16,6 +16,9 @@ export function Donate() {
   const [donorName, setDonorName] = useState('');
   const [donorEmail, setDonorEmail] = useState('');
   const [donorPhone, setDonorPhone] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [panNumber, setPanNumber] = useState('');
+  const [address, setAddress] = useState('');
   const [showReceipt, setShowReceipt] = useState(false);
   const [settings, setSettings] = useState<Settings | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -160,6 +163,10 @@ export function Donate() {
               <div className="space-y-2 text-gray-700">
                 <p><span className="font-medium">Name:</span> {donorName}</p>
                 <p><span className="font-medium">Email:</span> {donorEmail}</p>
+                <p><span className="font-medium">Phone:</span> {donorPhone}</p>
+                <p><span className="font-medium">Purpose:</span> {purpose.charAt(0).toUpperCase() + purpose.slice(1)}</p>
+                <p><span className="font-medium">PAN Number:</span> {panNumber.toUpperCase()}</p>
+                <p><span className="font-medium">Address:</span> {address}</p>
                 <p><span className="font-medium">Amount:</span> ₹{selectedAmount || customAmount}</p>
                 <p><span className="font-medium">Date:</span> {new Date().toLocaleDateString()}</p>
                 <p><span className="font-medium">Transaction ID:</span> TXN{Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
@@ -168,6 +175,13 @@ export function Donate() {
             <p className="text-gray-600 mb-6">
               A receipt has been sent to your email address. Your contribution will help us continue our mission to empower women and strengthen communities.
             </p>
+            <button
+                onClick={downloadReceipt}
+                className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <Download className="w-5 h-5" />
+                Download Receipt
+              </button>
             <button
               onClick={() => navigate('/')}
               className="bg-[#E5C100] text-[#0A6C87] px-8 py-3 rounded-lg font-semibold hover:bg-[#CCA900] transition-colors"
@@ -309,6 +323,48 @@ export function Donate() {
               </div>
             </div>
 
+             <div>
+                <label className="block text-gray-700 font-medium mb-2">Donation Purpose *</label>
+                <select
+                  value={purpose}
+                  onChange={(e) => setPurpose(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-white"
+                  required
+                >
+                  <option value="">Select purpose</option>
+                  <option value="scholarship">Scholarship</option>
+                  <option value="health">Health</option>
+                  <option value="general">General</option>
+                  <option value="education">Education</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">PAN Number *</label>
+                <input
+                  type="text"
+                  value={panNumber}
+                  onChange={(e) => setPanNumber(e.target.value.toUpperCase())}
+                  placeholder="ABCDE1234F"
+                  maxLength={10}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent uppercase"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">Format: 5 letters, 4 digits, 1 letter (e.g., ABCDE1234F)</p>
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Address *</label>
+                <textarea
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter your complete address"
+                  rows={3}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none"
+                  required
+                />
+              </div>
+            
             {/* Donate Button */}
             <button
               onClick={handleDonate}
