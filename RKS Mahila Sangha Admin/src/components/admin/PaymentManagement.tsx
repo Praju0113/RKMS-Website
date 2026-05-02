@@ -8,15 +8,19 @@ interface Transaction {
   id: string;
   name: string;
   email: string;
+  donor_name?: string;
+  donor_email?: string;
+  donor_phone?: string;
   type: 'donation' | 'membership' | 'event';
   amount: number;
   created_at: string;
   status: 'completed' | 'pending' | 'failed';
   payment_id?: string;
+  order_id?: string;
   membership_id?: string;
-  donationPurpose?: 'Scholarship' | 'Health' | 'General' | 'Education';
-  panNumber?: string;
-  donorAddress?: string;
+  purpose?: string;
+  pan_number?: string;
+  address?: string;
 }
 
 export function PaymentManagement() {
@@ -63,7 +67,7 @@ export function PaymentManagement() {
   const filteredTransactions = transactions.filter((transaction) => {
     if (filterType !== 'all' && transaction.type !== filterType) return false;
     if (filterStatus !== 'all' && transaction.status !== filterStatus) return false;
-    if (filterDonationPurpose !== 'all' && transaction.donationPurpose !== filterDonationPurpose) return false;
+    if (filterDonationPurpose !== 'all' && transaction.purpose !== filterDonationPurpose) return false;
     if (startDate && new Date(transaction.created_at) < new Date(startDate)) return false;
     if (endDate && new Date(transaction.created_at) > new Date(endDate)) return false;
     return true;
@@ -75,6 +79,14 @@ export function PaymentManagement() {
   const totalMemberships = filteredTransactions.filter((t: Transaction) => t.type === 'membership').reduce((sum: number, t: Transaction) => sum + amt(t), 0);
   const totalEventFees = filteredTransactions.filter((t: Transaction) => t.type === 'event').reduce((sum: number, t: Transaction) => sum + amt(t), 0);
 
+  // Calculate donation breakdown by purpose
+  const donationByPurpose = {
+    Scholarship: filteredTransactions.filter((t: Transaction) => t.type === 'donation' && t.purpose === 'scholarship').reduce((sum: number, t: Transaction) => sum + amt(t), 0),
+    Health: filteredTransactions.filter((t: Transaction) => t.type === 'donation' && t.purpose === 'health').reduce((sum: number, t: Transaction) => sum + amt(t), 0),
+    General: filteredTransactions.filter((t: Transaction) => t.type === 'donation' && t.purpose === 'general').reduce((sum: number, t: Transaction) => sum + amt(t), 0),
+    Education: filteredTransactions.filter((t: Transaction) => t.type === 'donation' && t.purpose === 'education').reduce((sum: number, t: Transaction) => sum + amt(t), 0),
+  };
+
   const handleExport = () => {
     const esc = (v: unknown) => {
       const s = String(v ?? '');
@@ -84,16 +96,16 @@ export function PaymentManagement() {
       ['ID', 'Name', 'Email', 'Type', 'Amount', 'Date', 'Status', 'Payment ID', 'Donation Purpose', 'PAN Number', 'Address'],
       ...filteredTransactions.map((t) => [
         t.id,
-        t.name || 'Guest',
-        t.email || '',
+        t.name || t.donor_name || 'Guest',
+        t.email || t.donor_email || '',
         t.type,
         Number(t.amount) || 0,
         new Date(t.created_at).toLocaleDateString(),
         t.status,
         t.payment_id || '',
-        t.type === 'donation' && t.donationPurpose ? t.donationPurpose : '',
-        t.type === 'donation' && t.panNumber ? t.panNumber : '',
-        t.type === 'donation' && t.donorAddress ? t.donorAddress : '',
+        t.type === 'donation' && t.purpose ? t.purpose : '',
+        t.type === 'donation' && t.pan_number ? t.pan_number : '',
+        t.type === 'donation' && t.address ? t.address : '',
       ]),
     ];
     const csv = rows.map((row) => row.map(esc).join(',')).join('\n');
@@ -313,8 +325,8 @@ export function PaymentManagement() {
                         {transaction.id}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{transaction.name || 'Guest'}</div>
-                        <div className="text-xs text-gray-500">{transaction.email}</div>
+                        <div className="text-sm text-gray-900">{transaction.name || transaction.donor_name || 'Guest'}</div>
+                        <div className="text-xs text-gray-500">{transaction.email || transaction.donor_email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 capitalize">
@@ -342,33 +354,33 @@ export function PaymentManagement() {
                         {transaction.payment_id || '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {transaction.type === 'donation' && transaction.donationPurpose ? (
-                          <span className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full ${
-                            transaction.donationPurpose === 'Scholarship'
+                        {transaction.type === 'donation' && transaction.purpose ? (
+                          <span className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full capitalize ${
+                            transaction.purpose === 'scholarship'
                               ? 'bg-purple-100 text-purple-800'
-                              : transaction.donationPurpose === 'Health'
+                              : transaction.purpose === 'health'
                               ? 'bg-red-100 text-red-800'
-                              : transaction.donationPurpose === 'Education'
+                              : transaction.purpose === 'education'
                               ? 'bg-blue-100 text-blue-800'
                               : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {transaction.donationPurpose}
+                            {transaction.purpose}
                           </span>
                         ) : (
                           <span className="text-gray-400">-</span>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {transaction.type === 'donation' && transaction.panNumber ? (
-                          transaction.panNumber
+                        {transaction.type === 'donation' && transaction.pan_number ? (
+                          transaction.pan_number
                         ) : (
                           <span className="text-gray-400">-</span>
                         )}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
-                        {transaction.type === 'donation' && transaction.donorAddress ? (
-                          <div className="truncate" title={transaction.donorAddress}>
-                            {transaction.donorAddress}
+                        {transaction.type === 'donation' && transaction.address ? (
+                          <div className="truncate" title={transaction.address}>
+                            {transaction.address}
                           </div>
                         ) : (
                           <span className="text-gray-400">-</span>

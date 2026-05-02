@@ -16,6 +16,11 @@ export interface ApiResponse<T> {
   success: boolean;
   message?: string;
   data?: T;
+  error?: string;
+  receipt?: {
+    downloadUrl: string;
+    filename: string;
+  };
   settings?: T;
   member?: T;
   payment?: T;
@@ -125,6 +130,10 @@ export const donationApi = {
     amount: number;
     name: string;
     email: string;
+    phone: string;
+    purpose: string;
+    panNumber: string;
+    address: string;
   }) => {
     const response = await fetch(`${API_BASE_URL}/donation/create-order`, {
       method: 'POST',
@@ -143,6 +152,10 @@ export const donationApi = {
     amount: number;
     name: string;
     email: string;
+    phone: string;
+    purpose: string;
+    panNumber: string;
+    address: string;
   }) => {
     const response = await fetch(`${API_BASE_URL}/donation/verify-payment`, {
       method: 'POST',

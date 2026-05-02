@@ -1,4 +1,4 @@
-import { Heart, CreditCard, Shield, CheckCircle } from 'lucide-react';
+import { Heart, CreditCard, Shield, CheckCircle, Download } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -20,6 +20,7 @@ export function Donate() {
   const [panNumber, setPanNumber] = useState('');
   const [address, setAddress] = useState('');
   const [showReceipt, setShowReceipt] = useState(false);
+  const [receiptInfo, setReceiptInfo] = useState<any>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,6 +69,10 @@ export function Donate() {
         amount,
         name: donorName,
         email: donorEmail,
+        phone: donorPhone,
+        purpose: purpose,
+        panNumber: panNumber,
+        address: address,
       });
 
       if (response.success && response.order && response.razorpayKeyId) {
@@ -132,9 +137,14 @@ export function Donate() {
         amount: paymentData.amount,
         name: paymentData.name,
         email: paymentData.email,
+        phone: donorPhone,
+        purpose: purpose,
+        panNumber: panNumber,
+        address: address,
       });
 
       if (response.success) {
+        setReceiptInfo(response.receipt);
         setShowReceipt(true);
         toast.success('Thank you for your generous donation!');
       } else {
@@ -143,6 +153,36 @@ export function Donate() {
     } catch (error) {
       console.error('Verification error:', error);
       toast.error('Payment verification failed. Please contact support.');
+    }
+  };
+
+  const downloadReceipt = () => {
+    console.log('Download receipt clicked', { receiptInfo });
+    
+    if (receiptInfo && receiptInfo.downloadUrl) {
+      try {
+        // Create a link element to download the PDF
+        const link = document.createElement('a');
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const fullUrl = `${baseUrl}${receiptInfo.downloadUrl}`;
+        
+        console.log('Downloading PDF from:', fullUrl);
+        
+        link.href = fullUrl;
+        link.download = receiptInfo.filename;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        toast.success('Receipt downloaded successfully!');
+      } catch (error) {
+        console.error('Error downloading receipt:', error);
+        toast.error('Failed to download receipt. Please check your email.');
+      }
+    } else {
+      console.log('No receipt info available', { receiptInfo });
+      toast.error('Receipt not available. Please check your email for the receipt.');
     }
   };
 

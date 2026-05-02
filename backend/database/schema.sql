@@ -83,6 +83,9 @@ CREATE TABLE IF NOT EXISTS payments (
     donor_name VARCHAR(100),
     donor_email VARCHAR(100),
     donor_phone VARCHAR(20),
+    purpose VARCHAR(50),
+    pan_number VARCHAR(10),
+    address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE SET NULL,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE SET NULL

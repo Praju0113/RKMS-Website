@@ -134,6 +134,7 @@ const getPayments = async (req, res) => {
 
         const [payments] = await pool.query(
             `SELECT p.id, p.amount, p.type, p.status, p.payment_id, p.order_id, p.created_at,
+                    p.donor_name, p.donor_email, p.donor_phone, p.purpose, p.pan_number, p.address,
                     m.name, m.email, m.membership_id
              FROM payments p
              LEFT JOIN members m ON p.member_id = m.id
